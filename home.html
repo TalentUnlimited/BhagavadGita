@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="stylesheet" href="static/public/output.css">
+	<title>Bhagavad Gita</title>
+	<script type="text/javascript" src="verses.js"></script>
+	<script>
+		function GetURLParameter(sParam)
+		{
+			var sPageURL = window.location.search.substring(1);
+			var sURLVariables = sPageURL.split('&');
+			for (var i = 0; i < sURLVariables.length; i++) 
+			{
+				var sParameterName = sURLVariables[i].split('=');
+				if (sParameterName[0] == sParam) 
+				{
+					return sParameterName[1];
+				}
+			}
+		}
+		window.onload = function() {			
+			for (let yindex=0; yindex < 6; yindex++) {
+				for (let xindex=0; xindex < 3; xindex++) {
+					var a = document.createElement('a');
+					a.setAttribute('href',"chapter.html?chapter="+parseInt((yindex*3)+xindex+1));
+					a.innerHTML = "Chapter "+parseInt((yindex*3)+xindex+1);
+					a.className = "border-2 p-4 rounded-sm";
+					document.getElementById("chapters").append(a);
+					//console.log(xindex, yindex);
+				}
+			}
+		
+		}
+	</script>
+
+</head>
+<body class="m-4 text-center">
+	<h1 class="text-slate-900 font-serif text-6xl border-2 p-1 border-slate-800">Bhagavad Gita</h1>
+	<img src="banner.jpg" alt="" width="300px" class="inline text-center m-4"></img>
+	<br>
+	<div id="chapters" class="grid grid-cols-3 gap-2">
+		
+	</div>
+</body>
+</html>

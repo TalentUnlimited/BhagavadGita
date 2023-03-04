@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="stylesheet" href="static/public/output.css">
+	<title>Bhagavad Gita</title>
+	<script type="text/javascript" src="verses.js"></script>
+	<script>
+		function GetURLParameter(sParam)
+		{
+			var sPageURL = window.location.search.substring(1);
+			var sURLVariables = sPageURL.split('&');
+			for (var i = 0; i < sURLVariables.length; i++) 
+			{
+				var sParameterName = sURLVariables[i].split('=');
+				if (sParameterName[0] == sParam) 
+				{
+					return sParameterName[1];
+				}
+			}
+		}
+		var verse_numbers = [47,72,43,42,29,47,30,28,34,42,55,20,35,27,20,24,28,78];
+		window.onload = function() {
+			chapter_number = parseInt(GetURLParameter("chapter"))-1;
+			verse_number = parseInt(GetURLParameter("verse"));
+			
+			heading_link = document.createElement("a");
+			heading_link.setAttribute('href',"chapter.html?chapter="+(chapter_number+1))
+			
+			heading = document.createElement("p");
+			heading.innerText = "Chapter " + (chapter_number+1) + " - Verse " + (verse_number);
+			heading.className = "text-3xl font-serif text-center mb-2";
+			heading_link.appendChild(heading);
+
+			document.body.append(heading_link);
+
+
+			verse = verses[chapter_number][verse_number]["verse"]
+			
+			
+			verse_p = document.createElement("p");
+			verse_p.className = "mb-4";
+
+			if (typeof verse == "string") {
+				verse_p.innerText = verse;
+				document.body.append(verse_p);
+			} else if (typeof verse == "object") {
+				index = 0;
+				while (index < verse.length) {
+					verse_p.innerText += verse[index] + "\n\n";
+					document.body.append(verse_p);
+					index++
+				}
+			}
+			var audio = document.createElement("AUDIO");
+			audio.setAttribute("src",verses[chapter_number][verse_number]["audio_link"]);
+			audio.setAttribute("controls", "controls");
+			audio.className = "inline text-center sm:w-min w-full mb-5";
+			document.body.append(audio);
+
+			var br = document.createElement("br")
+			document.body.append(br)
+
+			if (verse_number>1) {
+				var previous = document.createElement('a');
+				previous.setAttribute('href',"verse.html?chapter="+(chapter_number+1)+"&verse="+(verse_number-1))
+				previous.innerHTML = "Previous";
+				previous.className = "border-2 p-3 mr-4 rounded-sm";
+				document.body.append(previous);
+			}
+
+
+			if (verse_number<verse_numbers[chapter_number]) {
+				var next = document.createElement('a');
+				next.setAttribute('href',"verse.html?chapter="+(chapter_number+1)+"&verse="+(verse_number+1))
+				next.innerHTML = "Next";
+				next.className = "border-2 p-3 rounded-sm";
+				document.body.append(next);
+			}
+		}
+	</script>
+
+</head>
+<body class="m-4 text-center">
+	<a href="home.html"><h1 class="text-slate-900 font-serif text-6xl border-2 p-1 border-slate-800">Bhagavad Gita</h1></a>
+	<br>
+</body>
+</html>

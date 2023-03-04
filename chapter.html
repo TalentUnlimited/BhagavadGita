@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="stylesheet" href="static/public/output.css">
+	<title>Bhagavad Gita</title>
+	<script type="text/javascript" src="verses.js"></script>
+	<script>
+		function GetURLParameter(sParam)
+		{
+			var sPageURL = window.location.search.substring(1);
+			var sURLVariables = sPageURL.split('&');
+			for (var i = 0; i < sURLVariables.length; i++) 
+			{
+				var sParameterName = sURLVariables[i].split('=');
+				if (sParameterName[0] == sParam) 
+				{
+					return sParameterName[1];
+				}
+			}
+		}
+
+		var verse_numbers = [47,72,43,42,29,47,30,28,34,42,55,20,35,27,20,24,28,78];
+		window.onload = function() {			
+			chapter_number = parseInt(GetURLParameter("chapter"))-1;
+
+			heading = document.createElement("p");
+			heading.innerText = "Chapter " + (chapter_number+1);
+			heading.className = "text-4xl font-serif text-left mb-2"
+			document.getElementById("heading").append(heading);
+
+			for (let index=0; index < verse_numbers[chapter_number]; index++) {
+				var a = document.createElement('a');
+				a.setAttribute('href',"verse.html?chapter="+(chapter_number+1)+"&verse="+(index+1))
+				a.innerHTML = parseInt(index+1);
+				a.className = "border-2 p-4 rounded-sm";
+				document.getElementById("verses").append(a);
+			}
+		
+		}
+	</script>
+
+</head>
+<body class="m-4 text-center">
+	<a href="home.html"><h1 class="text-slate-900 font-serif text-6xl border-2 p-1 border-slate-800">Bhagavad Gita</h1></a>
+	<br>
+	<span id="heading"></span>
+	<div id="verses" class="grid grid-cols-6 gap-2">
+		
+	</div>
+</body>
+</html>
