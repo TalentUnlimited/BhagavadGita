@@ -51,10 +51,13 @@
 					index++
 				}
 			}
-			var audio = document.createElement("AUDIO");
-			audio.setAttribute("src",verses[chapter_number][verse_number]["audio_link"]);
+						var audio = document.createElement("AUDIO");
 			audio.setAttribute("controls", "controls");
 			audio.className = "inline text-center sm:w-min w-full mb-5";
+			source = document.createElement("source");
+			source.setAttribute("src",verses[chapter_number][verse_number]["audio_link"]);
+			audio.appendChild(source);
+
 			document.body.append(audio);
 
 			var br = document.createElement("br")
